@@ -15,8 +15,14 @@ let otherSizes = otherSize =>
 
 let widths = width =>
   switch (width) {
+  | None => "max-content"
+  | Some(width) => width
+  };
+
+let minWidths = minWidth =>
+  switch (minWidth) {
   | None => "100%"
-  | Some(width) => width ++ "px"
+  | Some(minWidth) => minWidth
   };
 
 let transforms = transform =>
@@ -64,7 +70,6 @@ let make =
       ~bottom: option(string)=?,
       ~left: option(string)=?,
       ~transform: option(string)=?,
-      ~maxWidth: option(string)=?,
       ~width: option(string)=?,
       ~minWidth: option(string)=?,
       ~maxHeight: option(string)=?,
@@ -106,14 +111,11 @@ let make =
               ~transform={
                 transform |> transforms;
               },
-              ~maxWidth={
-                maxWidth |> otherSizes;
-              },
               ~width={
                 width |> widths;
               },
               ~minWidth={
-                minWidth |> otherSizes;
+                minWidth |> minWidths;
               },
               ~maxHeight={
                 maxHeight |> otherSizes;

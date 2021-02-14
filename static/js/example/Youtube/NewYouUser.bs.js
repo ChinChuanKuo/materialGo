@@ -139,8 +139,8 @@ function NewYouUser(Props) {
                                                       right: "15",
                                                       bottom: "0",
                                                       left: "0",
-                                                      enterBorderColor: "transparent",
                                                       downBorderColor: "transparent",
+                                                      enterBorderColor: "transparent",
                                                       onClick: (function (param) {
                                                           return ReasonReactRouter.push(Path$BtsCore.securityPath);
                                                         }),

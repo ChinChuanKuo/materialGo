@@ -27,59 +27,51 @@ var initialState = {
   down: false
 };
 
-function margins(margin) {
-  if (margin !== undefined) {
-    return margin + "px";
+function margins(value) {
+  if (value !== undefined) {
+    return value + "px";
   } else {
     return "10px";
   }
 }
 
-function colors(color) {
-  if (color !== undefined) {
-    return color;
-  } else {
-    return "#fafafa";
-  }
-}
-
-function borderWidths(borderWidth) {
-  if (borderWidth !== undefined) {
-    return borderWidth + "px";
+function widths(value) {
+  if (value !== undefined) {
+    return value + "px";
   } else {
     return "1px";
   }
 }
 
-function borderStyles(borderStyle) {
-  if (borderStyle !== undefined) {
-    return borderStyle;
+function styles(value) {
+  if (value !== undefined) {
+    return value;
   } else {
     return "solid";
   }
 }
 
-function borderColors(borderColor) {
-  if (borderColor !== undefined) {
-    return borderColor;
-  } else {
-    return "transparent";
-  }
-}
-
-function enterBorderColors(enterBorderColor) {
-  if (enterBorderColor !== undefined) {
-    return enterBorderColor;
+function enterColors(value) {
+  if (value !== undefined) {
+    return value;
   } else {
     return "rgba(255,0,0,1)";
   }
 }
 
-function backgroundColors(backgroundColor) {
-  if (backgroundColor !== undefined) {
-    return backgroundColor;
+function backgroundColors(value) {
+  if (value !== undefined) {
+    return value;
   } else {
     return "#bdbdbd";
+  }
+}
+
+function colors(value) {
+  if (value !== undefined) {
+    return value;
+  } else {
+    return "#fafafa";
   }
 }
 
@@ -90,12 +82,20 @@ function Avatar(Props) {
   var bottom = Props.bottom;
   var left = Props.left;
   var color = Props.color;
+  var downColor = Props.downColor;
+  var enterColor = Props.enterColor;
   var borderWidth = Props.borderWidth;
+  var downBorderWidth = Props.downBorderWidth;
+  var enterBorderWidth = Props.enterBorderWidth;
   var borderStyle = Props.borderStyle;
-  var enterBorderColor = Props.enterBorderColor;
-  var downBorderColor = Props.downBorderColor;
+  var downBorderStyle = Props.downBorderStyle;
+  var enterBorderStyle = Props.enterBorderStyle;
   var borderColor = Props.borderColor;
+  var downBorderColor = Props.downBorderColor;
+  var enterBorderColor = Props.enterBorderColor;
   var backgroundColor = Props.backgroundColor;
+  var downBackgroundColor = Props.downBackgroundColor;
+  var enterBackgroundColor = Props.enterBackgroundColor;
   var onClick = Props.onClick;
   var children = Props.children;
   var match = React.useReducer(reducer, initialState);
@@ -103,22 +103,56 @@ function Avatar(Props) {
   var state = match[0];
   var match$1 = state.enter;
   var match$2 = state.down;
+  var match$3 = state.enter;
+  var match$4 = state.down;
+  var match$5 = state.enter;
+  var match$6 = state.down;
+  var match$7 = state.enter;
+  var match$8 = state.down;
+  var match$9 = state.enter;
+  var match$10 = state.down;
   var tmp = {
     className: "j4f2n9i",
     style: Object.assign(({}), {
-          backgroundColor: backgroundColor !== undefined ? backgroundColor : "#bdbdbd",
-          borderColor: match$1 ? (
+          backgroundColor: match$1 ? (
               match$2 ? (
+                  downBackgroundColor !== undefined ? downBackgroundColor : "#bdbdbd"
+                ) : (
+                  enterBackgroundColor !== undefined ? enterBackgroundColor : "#bdbdbd"
+                )
+            ) : (
+              backgroundColor !== undefined ? backgroundColor : "#bdbdbd"
+            ),
+          borderColor: match$3 ? (
+              match$4 ? (
                   downBorderColor !== undefined ? downBorderColor : "rgba(255,0,0,1)"
                 ) : (
                   enterBorderColor !== undefined ? enterBorderColor : "rgba(255,0,0,1)"
                 )
             ) : (
-              borderColor !== undefined ? borderColor : "transparent"
+              borderColor !== undefined ? borderColor : "#fafafa"
             ),
-          borderStyle: borderStyle !== undefined ? borderStyle : "solid",
-          borderWidth: borderWidths(borderWidth),
-          color: color !== undefined ? color : "#fafafa",
+          borderStyle: match$5 ? (
+              match$6 ? (
+                  downBorderStyle !== undefined ? downBorderStyle : "solid"
+                ) : (
+                  enterBorderStyle !== undefined ? enterBorderStyle : "solid"
+                )
+            ) : (
+              borderStyle !== undefined ? borderStyle : "solid"
+            ),
+          borderWidth: match$7 ? (
+              match$8 ? widths(downBorderWidth) : widths(enterBorderWidth)
+            ) : widths(borderWidth),
+          color: match$9 ? (
+              match$10 ? (
+                  downColor !== undefined ? downColor : "#fafafa"
+                ) : (
+                  enterColor !== undefined ? enterColor : "#fafafa"
+                )
+            ) : (
+              color !== undefined ? color : "#fafafa"
+            ),
           cursor: "pointer",
           marginTop: margins(top),
           marginRight: margins(right),
@@ -150,12 +184,11 @@ export {
   reducer ,
   initialState ,
   margins ,
-  colors ,
-  borderWidths ,
-  borderStyles ,
-  borderColors ,
-  enterBorderColors ,
+  widths ,
+  styles ,
+  enterColors ,
   backgroundColors ,
+  colors ,
   make ,
   
 }

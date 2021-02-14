@@ -12,3 +12,9 @@ let checkObjects = default => {
   | Some(default) => default
   };
 };
+[@genType]
+let actionObjects = default =>
+  switch (default) {
+  | None => (_ => "action" |> Js.log)
+  | Some(default) => default
+  };

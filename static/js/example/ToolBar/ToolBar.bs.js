@@ -260,7 +260,7 @@ function ToolBar(Props) {
     tmp = React.createElement(React.Fragment, undefined, React.createElement(SelectMenu$BtsCore.make, {
               top: "50%",
               transform: "translate(0, -50%)",
-              width: "auto",
+              minWidth: "auto",
               maxHeight: "280",
               minHeight: "0",
               topLeft: "12",
@@ -404,8 +404,8 @@ function ToolBar(Props) {
   var match$7 = Setting$BtsCore.intObjects(width) >= 800;
   var match$8 = Setting$BtsCore.intObjects(width) >= 750;
   return React.createElement(AppBar$BtsCore.make, {
-              backgroundColor: "rgba(255,255,255,1)",
               position: "relative",
+              color: "rgba(255,255,255,1)",
               zIndex: "1",
               minHeight: "40",
               children: React.createElement(GridContainer$BtsCore.make, {
@@ -555,7 +555,7 @@ function ToolBar(Props) {
                               })), state.showAlign ? React.createElement(React.Fragment, undefined, React.createElement(SelectMenu$BtsCore.make, {
                                   top: "50%",
                                   transform: "translate(0, -50%)",
-                                  width: "auto",
+                                  minWidth: "auto",
                                   maxHeight: "280",
                                   minHeight: "0",
                                   topLeft: "12",
@@ -762,7 +762,7 @@ function ToolBar(Props) {
                               })), state.showSize ? React.createElement(React.Fragment, undefined, React.createElement(SelectMenu$BtsCore.make, {
                                   top: "50%",
                                   transform: "translate(0, -50%)",
-                                  width: "105",
+                                  minWidth: "auto",
                                   maxHeight: "280",
                                   minHeight: "0",
                                   topLeft: "12",

@@ -12,14 +12,14 @@ type state = {
 type action =
   | SettingError
   | SettingFormLoad
-  | ActionshowProgress
+  | ActionShowProgress
   | ActionRecorder(element);
 
 let reducer = (state, action) =>
   switch (action) {
   | SettingError => {...state, error: !state.error}
   | SettingFormLoad => {...state, formLoad: !state.formLoad}
-  | ActionshowProgress => {...state, showProgress: !state.showProgress}
+  | ActionShowProgress => {...state, showProgress: !state.showProgress}
   | ActionRecorder(recorder) => {...state, recorder}
   };
 

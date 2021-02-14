@@ -1,24 +1,24 @@
 open Setting;
 [%bs.raw {|require('../../scss/Badge/badge.scss')|}];
 
-let transforms = (vertical, horizontal) =>
-  switch (vertical) {
+let others = value =>
+  switch (value) {
+  | None => "auto"
+  | Some(value) => value
+  };
+
+let transforms = (key, value) =>
+  switch (key) {
   | None =>
-    switch (horizontal) {
+    switch (value) {
     | None => "translate(15px, -15px)"
     | _ => "translate(-15px, -15px)"
     }
   | _ =>
-    switch (horizontal) {
+    switch (value) {
     | None => "translate(15px, 15px)"
     | _ => "translate(-15px, 15px)"
     }
-  };
-
-let backgroundColors = backgroundColor =>
-  switch (backgroundColor) {
-  | None => "#3f51b5"
-  | Some(backgroundColor) => backgroundColor
   };
 
 let colors = color =>
@@ -27,14 +27,24 @@ let colors = color =>
   | Some(color) => color
   };
 
+let backgroundColors = value =>
+  switch (value) {
+  | None => "#3f51b5"
+  | Some(value) => value
+  };
+
 [@react.component]
 let make =
     (
       ~style: option(ReactDOMRe.style)=?,
       ~vertical: option(string)=?,
       ~horizontal: option(string)=?,
-      ~backgroundColor: option(string)=?,
+      ~top: option(string)=?,
+      ~right: option(string)=?,
+      ~bottom: option(string)=?,
+      ~left: option(string)=?,
       ~color: option(string)=?,
+      ~backgroundColor: option(string)=?,
       ~children,
     ) =>
   ReactDOMRe.createDOMElementVariadic(
@@ -44,18 +54,26 @@ let make =
         ~style={
           ReactDOMRe.Style.combine(
             ReactDOMRe.Style.make(
-              ~top="auto",
-              ~right="auto",
-              ~bottom="auto",
-              ~left="auto",
+              ~top={
+                top |> others;
+              },
+              ~right={
+                right |> others;
+              },
+              ~bottom={
+                bottom |> others;
+              },
+              ~left={
+                left |> others;
+              },
               ~transform={
                 transforms(vertical, horizontal);
               },
-              ~backgroundColor={
-                backgroundColor |> backgroundColors;
-              },
               ~color={
                 color |> colors;
+              },
+              ~backgroundColor={
+                backgroundColor |> backgroundColors;
               },
               (),
             ),

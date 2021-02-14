@@ -396,11 +396,13 @@ function NewBookBoard(Props) {
   var state = match[0];
   var menuShow = autoPath === "bookmarks";
   var maxHeight = String(state.formHeight) + "px";
-  var badgeFormAJax = function (param) {
-    Axiosapi$BtsCore.Form.badgeForm(Data$BtsCore.userData(localStorage.getItem("newid"))).then((function (response) {
-              return Promise.resolve(Curry._1(dispatch, /* SettingBadge */Block.__(2, [response.data.status])));
-            })).catch((function (error) {
-            return Promise.resolve((console.log(error), undefined));
+  var badgeFormFunc = function (badge){ badgeFormAJax(badge); };
+  var badgeFormEror = function (badge){ setTimeout(() => badgeFormAJax(badge), 15000); };
+  var badgeFormAJax = function (badge) {
+    Axiosapi$BtsCore.Form.badgeForm(Data$BtsCore.otherData(localStorage.getItem("newid"), badge)).then((function (response) {
+              return Promise.resolve((Curry._1(dispatch, /* SettingBadge */Block.__(2, [response.data.status])), badgeFormFunc(response.data.status)));
+            })).catch((function (param) {
+            return Promise.resolve(badgeFormEror(badge));
           }));
     
   };
@@ -435,7 +437,7 @@ function NewBookBoard(Props) {
                 navigator.geolocation.getCurrentPosition(Basic$BtsCore.$$Location.success, Basic$BtsCore.$$Location.error, Basic$BtsCore.$$Location.items);
                 Basic$BtsCore.Browser.success(navigator.userAgent);
                 notificationAJax(undefined);
-                tmp = badgeFormAJax(undefined);
+                tmp = badgeFormAJax(state.badge);
               } else {
                 localStorage.setItem("newid", "");
                 sessionStorage.setItem("autoPath", autoPath);
@@ -498,7 +500,13 @@ function NewBookBoard(Props) {
         }));
   var keydownField = React.useCallback((function (keyCode) {
           if (keyCode === 13 && state.value !== "") {
-            return ReasonReactRouter.push(Path$BtsCore.searchPath + ("#" + state.value));
+            Curry._1(dispatch, /* ShowRecord */0);
+            Axiosapi$BtsCore.Form.addCord(Data$BtsCore.otherData(localStorage.getItem("newid"), state.value)).then((function (param) {
+                      return Promise.resolve(ReasonReactRouter.push(Path$BtsCore.searchPath + ("#" + state.value)));
+                    })).catch((function (error) {
+                    return Promise.resolve((console.log(error), undefined));
+                  }));
+            return ;
           }
           
         }));
@@ -521,6 +529,7 @@ function NewBookBoard(Props) {
           return Curry._1(dispatch, /* ShowCreate */1);
         }));
   var createForm = React.useCallback((function (param) {
+          Curry._1(dispatch, /* ClickItemTab */Block.__(6, [-1]));
           return Curry._1(dispatch, /* ShowCreate */1);
         }));
   var searchBadge = React.useCallback((function (param) {
@@ -552,7 +561,7 @@ function NewBookBoard(Props) {
   var match$1 = state.formWidth < 1259;
   var match$2 = state.showRecord;
   return React.createElement(React.Fragment, undefined, React.createElement(AppBar$BtsCore.make, {
-                  backgroundColor: "rgba(255,255,255,1)",
+                  color: "rgba(255,255,255,1)",
                   minHeight: "60",
                   children: React.createElement(GridContainer$BtsCore.make, {
                         direction: "row",

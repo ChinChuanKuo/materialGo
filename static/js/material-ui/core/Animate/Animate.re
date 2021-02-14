@@ -1,38 +1,41 @@
-let attributeNames = attributeName =>
-  switch (attributeName) {
+open Setting;
+
+let attributeNames = value =>
+  switch (value) {
   | None => ""
-  | Some(attributeName) => attributeName
+  | Some(value) => value
   };
 
-let calcModes = calcMode =>
-  switch (calcMode) {
+let calcModes = value =>
+  switch (value) {
   | None => "linear"
-  | Some(calcMode) => calcMode
+  | Some(value) => value
   };
 
-let fills = fill =>
-  switch (fill) {
+let fills = value =>
+  switch (value) {
   | None => "freeze"
-  | Some(fill) => fill
+  | Some(value) => value
   };
 
-let durs = dur =>
-  switch (dur) {
+let durs = value =>
+  switch (value) {
   | None => "1s"
-  | Some(dur) => dur ++ "s"
+  | Some(value) => value ++ "s"
   };
 
-let others = other =>
-  switch (other) {
+let others = value =>
+  switch (value) {
   | None => "0"
-  | Some(other) => other
+  | Some(value) => value
   };
 
 [@react.component]
 let make =
     (
-      ~attributeName: option(string)=?,
-      ~calcMode: option(string)=?,
+      ~style: option(ReactDOMRe.style)=?,
+      ~name: option(string)=?,
+      ~mode: option(string)=?,
       ~fill: option(string)=?,
       ~dur: option(string)=?,
       ~from: option(string)=?,
@@ -42,11 +45,14 @@ let make =
     "animate",
     ~props=
       ReactDOMRe.domProps(
+        ~style={
+          style |> styleObjects;
+        },
         ~attributeName={
-          attributeName |> attributeNames;
+          name |> attributeNames;
         },
         ~calcMode={
-          calcMode |> calcModes;
+          mode |> calcModes;
         },
         ~fill={
           fill |> fills;

@@ -23,7 +23,15 @@ function otherSizes(otherSize) {
 
 function widths(width) {
   if (width !== undefined) {
-    return width + "px";
+    return width;
+  } else {
+    return "max-content";
+  }
+}
+
+function minWidths(minWidth) {
+  if (minWidth !== undefined) {
+    return minWidth;
   } else {
     return "100%";
   }
@@ -84,7 +92,6 @@ function SelectMenu(Props) {
   var bottom = Props.bottom;
   var left = Props.left;
   var transform = Props.transform;
-  var maxWidth = Props.maxWidth;
   var width = Props.width;
   var minWidth = Props.minWidth;
   var maxHeight = Props.maxHeight;
@@ -109,14 +116,13 @@ function SelectMenu(Props) {
                     height: otherSizes(height),
                     left: left !== undefined ? left : "auto",
                     maxHeight: otherSizes(maxHeight),
-                    maxWidth: otherSizes(maxWidth),
                     minHeight: otherSizes(minHeight),
-                    minWidth: otherSizes(minWidth),
+                    minWidth: minWidth !== undefined ? minWidth : "100%",
                     overflow: overflow !== undefined ? overflow : "auto",
                     position: "absolute",
                     right: right !== undefined ? right : "auto",
                     top: top !== undefined ? top : "auto",
-                    width: widths(width),
+                    width: width !== undefined ? width : "max-content",
                     zIndex: "1200",
                     borderTopLeftRadius: borderRadiuses(topLeft),
                     borderTopRightRadius: borderRadiuses(topRight),
@@ -141,6 +147,7 @@ export {
   locations ,
   otherSizes ,
   widths ,
+  minWidths ,
   transforms ,
   overflows ,
   backgroundColors ,

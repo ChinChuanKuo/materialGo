@@ -68,7 +68,7 @@ let make =
               strokeWidth={strokeWidth |> stringObjects}
               x={i |> x}
               y={data.to_ |> y}>
-              <Animate attributeName="height" to_={data.to_ |> barHeight} />
+              <Animate name="height" to_={data.to_ |> barHeight} />
             </BarPillar>
             <BarText
               x={

@@ -5,33 +5,33 @@ import * as Setting$BtsCore from "../../../setting/Setting.bs.js";
 
 ((require('../../scss/AppBar/appBar.scss')));
 
-function backgroundColors(backgroundColor) {
-  if (backgroundColor !== undefined) {
-    return backgroundColor;
-  } else {
-    return "#3f51b5";
-  }
-}
-
-function positions(position) {
-  if (position !== undefined) {
-    return position;
+function positions(value) {
+  if (value !== undefined) {
+    return value;
   } else {
     return "fixed";
   }
 }
 
-function zIndexs(zIndex) {
-  if (zIndex !== undefined) {
-    return zIndex;
+function colors(value) {
+  if (value !== undefined) {
+    return value;
+  } else {
+    return "#3f51b5";
+  }
+}
+
+function zIndexs(value) {
+  if (value !== undefined) {
+    return value;
   } else {
     return "1200";
   }
 }
 
-function minHeights(minHeight) {
-  if (minHeight !== undefined) {
-    return minHeight + "px";
+function minHeights(value) {
+  if (value !== undefined) {
+    return value + "px";
   } else {
     return "64px";
   }
@@ -39,15 +39,15 @@ function minHeights(minHeight) {
 
 function AppBar(Props) {
   var style = Props.style;
-  var backgroundColor = Props.backgroundColor;
   var position = Props.position;
+  var color = Props.color;
   var zIndex = Props.zIndex;
   var minHeight = Props.minHeight;
   var children = Props.children;
   return React.createElement("header", {
               className: "jss99 jss98 jss113",
               style: Object.assign(({}), {
-                    backgroundColor: backgroundColor !== undefined ? backgroundColor : "#3f51b5",
+                    backgroundColor: color !== undefined ? color : "#3f51b5",
                     position: position !== undefined ? position : "fixed",
                     zIndex: zIndex !== undefined ? zIndex : "1200"
                   }, Setting$BtsCore.styleObjects(style))
@@ -62,8 +62,8 @@ function AppBar(Props) {
 var make = AppBar;
 
 export {
-  backgroundColors ,
   positions ,
+  colors ,
   zIndexs ,
   minHeights ,
   make ,

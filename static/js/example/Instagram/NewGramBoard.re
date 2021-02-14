@@ -226,7 +226,7 @@ let make = (~autoPath: 'a, ~children) => {
       loginPath |> ReasonReactRouter.push;
     });
   <>
-    <AppBar backgroundColor="rgba(255,255,255,1)" minHeight="54">
+    <AppBar color="rgba(255,255,255,1)" minHeight="54">
       <GridItem
         style=marginAuto
         top="0"

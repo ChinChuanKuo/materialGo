@@ -126,8 +126,8 @@ function NewGramBadge(Props) {
                                                           right: "0",
                                                           bottom: "0",
                                                           left: "0",
-                                                          enterBorderColor: "transparent",
                                                           downBorderColor: "transparent",
+                                                          enterBorderColor: "transparent",
                                                           children: Setting$BtsCore.stringObjects(badge)
                                                         })
                                                   }), React.createElement(GridItem$BtsCore.make, {

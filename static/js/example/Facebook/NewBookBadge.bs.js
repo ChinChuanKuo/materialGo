@@ -180,8 +180,8 @@ function NewBookBadge(Props) {
                                                                           right: "0",
                                                                           bottom: "0",
                                                                           left: "0",
-                                                                          enterBorderColor: "transparent",
                                                                           downBorderColor: "transparent",
+                                                                          enterBorderColor: "transparent",
                                                                           onClick: (function (param) {
                                                                               return ReasonReactRouter.push(item.link);
                                                                             }),

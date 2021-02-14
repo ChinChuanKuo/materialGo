@@ -2,9 +2,11 @@ open Axios;
 module Form = {
   let checkNew = data => postData("/Form/checkNewData", data);
   let loginForm = data => postData("/Form/loginFormData", data);
-  let badgeForm = data => postData("/Form/badgeFormData", data);
+  let badgeForm = data =>
+    postDatac("/Form/badgeFormData", data, makeConfig(~timeout=30000, ()));
   let permiss = data => postData("/Form/permissData", data);
   let record = data => postData("/Form/recordData", data);
+  let addCord = data => postData("/Form/addCordData", data);
   let badge = data => postData("/Form/badgeData", data);
 };
 

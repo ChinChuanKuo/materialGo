@@ -12,7 +12,9 @@ function loginForm(data) {
 }
 
 function badgeForm(data) {
-  return Axios$1.post("/Form/badgeFormData", data);
+  return Axios$1.post("/Form/badgeFormData", data, {
+              timeout: 30000
+            });
 }
 
 function permiss(data) {
@@ -21,6 +23,10 @@ function permiss(data) {
 
 function record(data) {
   return Axios$1.post("/Form/recordData", data);
+}
+
+function addCord(data) {
+  return Axios$1.post("/Form/addCordData", data);
 }
 
 function badge(data) {
@@ -33,6 +39,7 @@ var Form = {
   badgeForm: badgeForm,
   permiss: permiss,
   record: record,
+  addCord: addCord,
   badge: badge
 };
 

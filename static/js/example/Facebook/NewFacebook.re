@@ -4,7 +4,10 @@ open Setting;
 open OutSide;
 open Together;
 open ReactIntl;
+open Path;
 open Icons;
+open Storage;
+open ObjectFormat;
 [%bs.raw {|require('../../../scss/example/Facebook/newFacebook.scss')|}];
 
 type tupleChildren = (reactElement, reactElement);
@@ -103,12 +106,16 @@ let make =
           topLeft="20"
           topRight="20"
           bottomRight="20"
-          bottomLeft="20"
-          onClick={_ => Path.homePath |> ReasonReactRouter.push}>
+          bottomLeft="20">
           ...(
-               <IconGeneral src=homeBlack />,
+               <Typography
+                 style={ReactDOMRe.Style.make(~paddingLeft="2px", ())}
+                 variant="tile"
+                 color="#909090">
+                 {"name" |> Locals.select |> checkObjects |> string}
+               </Typography>,
                <Typography variant="subheading">
-                 <FormattedMessage id="Path.home" defaultMessage="Home" />
+                 {"allname" |> Locals.select |> checkObjects |> string}
                </Typography>,
              )
         </ListIcon>
@@ -120,7 +127,7 @@ let make =
           topRight="20"
           bottomRight="20"
           bottomLeft="20"
-          onClick={_ => Path.homePath |> ReasonReactRouter.push}>
+          onClick={_ => homePath |> ReasonReactRouter.push}>
           ...(
                <IconGeneral src=homeBlack />,
                <Typography variant="subheading">
@@ -129,6 +136,7 @@ let make =
              )
         </ListIcon>
       </List_>
+      <Divider />
     </Drawer>
     <main
       style={ReactDOMRe.Style.combine(
@@ -164,9 +172,7 @@ let make =
           {error |> disabledObjects
              ? <div style=errorForm>
                  <Typography
-                   variant="tile"
-                   color="rgba(255,0,0,0.8)"
-                   fontSize="x-large">
+                   variant="tile" color="rgba(255,0,0,0.8)" fontSize="x-large">
                    {"UNDEFINED THIS PAGE" |> string}
                  </Typography>
                </div>

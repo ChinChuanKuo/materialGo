@@ -40,7 +40,7 @@ function PieChart(Props) {
                         from: from(datas, i) / total(datas),
                         to_: to_(datas, i, data.to_) / total(datas),
                         children: React.createElement(Animate$BtsCore.make, {
-                              attributeName: "opacity",
+                              name: "opacity",
                               to_: "1"
                             })
                       };

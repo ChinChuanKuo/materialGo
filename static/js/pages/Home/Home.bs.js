@@ -35,7 +35,7 @@ function reducer(state, action) {
                 error: state.error,
                 recorder: state.recorder
               };
-    case /* ActionshowProgress */2 :
+    case /* ActionShowProgress */2 :
         return {
                 formLoad: state.formLoad,
                 showProgress: !state.showProgress,

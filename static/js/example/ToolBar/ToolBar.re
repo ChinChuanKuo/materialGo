@@ -106,10 +106,7 @@ let make = (~disabled: option(bool)=?, ~width: option(int)=?) => {
     useCallback(_ => ExecCommands.make("strikethrough", false, ""));
 
   <AppBar
-    backgroundColor="rgba(255,255,255,1)"
-    position="relative"
-    zIndex="1"
-    minHeight="40">
+    position="relative" color="rgba(255,255,255,1)" zIndex="1" minHeight="40">
     <GridContainer direction="rowReverse" justify="center" alignItem="center">
       <GridItem top="0" right="6" bottom="0" left="0" xs="no">
         <IconButton padding="4" onClick=showMore>
@@ -123,7 +120,7 @@ let make = (~disabled: option(bool)=?, ~width: option(int)=?) => {
                <SelectMenu
                  top="50%"
                  transform="translate(0, -50%)"
-                 width="auto"
+                 minWidth="auto"
                  maxHeight="280"
                  minHeight="0"
                  topLeft="12"
@@ -359,7 +356,7 @@ let make = (~disabled: option(bool)=?, ~width: option(int)=?) => {
                <SelectMenu
                  top="50%"
                  transform="translate(0, -50%)"
-                 width="auto"
+                 minWidth="auto"
                  maxHeight="280"
                  minHeight="0"
                  topLeft="12"
@@ -508,7 +505,7 @@ let make = (~disabled: option(bool)=?, ~width: option(int)=?) => {
                <SelectMenu
                  top="50%"
                  transform="translate(0, -50%)"
-                 width="105"
+                 minWidth="auto"
                  maxHeight="280"
                  minHeight="0"
                  topLeft="12"

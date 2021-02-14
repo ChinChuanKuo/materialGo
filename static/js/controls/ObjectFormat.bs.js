@@ -17,9 +17,21 @@ function checkObjects($$default) {
   }
 }
 
+function actionObjects($$default) {
+  if ($$default !== undefined) {
+    return $$default;
+  } else {
+    return (function (param) {
+        console.log("action");
+        
+      });
+  }
+}
+
 export {
   changeObjects ,
   checkObjects ,
+  actionObjects ,
   
 }
 /* No side effect */

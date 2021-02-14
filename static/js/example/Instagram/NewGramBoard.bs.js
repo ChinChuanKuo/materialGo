@@ -321,7 +321,7 @@ function NewGramBoard(Props) {
           return ReasonReactRouter.push(Path$BtsCore.loginPath);
         }));
   return React.createElement(React.Fragment, undefined, React.createElement(AppBar$BtsCore.make, {
-                  backgroundColor: "rgba(255,255,255,1)",
+                  color: "rgba(255,255,255,1)",
                   minHeight: "54",
                   children: React.createElement(GridItem$BtsCore.make, {
                         style: Together$BtsCore.marginAuto,

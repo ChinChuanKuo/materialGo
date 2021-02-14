@@ -55,7 +55,7 @@ function BarChart(Props) {
                                     x: x(i),
                                     y: y(data.to_),
                                     children: React.createElement(Animate$BtsCore.make, {
-                                          attributeName: "height",
+                                          name: "height",
                                           to_: barHeight(data.to_)
                                         })
                                   }), React.createElement(BarText$BtsCore.make, {

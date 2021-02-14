@@ -124,16 +124,25 @@ let make = (~autoPath: 'a, ~children) => {
   let (state, dispatch) = useReducer(reducer, initialState);
   let menuShow = autoPath === "bookmarks";
   let maxHeight = string_of_int(state.formHeight) ++ "px";
-  let badgeFormAJax = () =>
+  let badgeFormFunc: string => unit = [%bs.raw
+    badge => {| badgeFormAJax(badge); |}
+  ];
+  let badgeFormEror: string => unit = [%bs.raw
+    badge => {| setTimeout(() => badgeFormAJax(badge), 15000); |}
+  ];
+  let badgeFormAJax = badge =>
     Js.Promise.(
-      "newid"
-      |> Locals.select
-      |> userData
+      badge
+      |> otherData("newid" |> Locals.select)
       |> Form.badgeForm
       |> then_(response =>
-           SettingBadge(response##data##status) |> dispatch |> resolve
+           {
+             SettingBadge(response##data##status) |> dispatch;
+             response##data##status |> badgeFormFunc;
+           }
+           |> resolve
          )
-      |> catch(error => error |> Js.log |> resolve)
+      |> catch(_ => badge |> badgeFormEror |> resolve)
       |> ignore
     );
   let notification = () =>
@@ -180,7 +189,7 @@ let make = (~autoPath: 'a, ~children) => {
                Navigator.Browser.make |> Browser.success |> ignore;
                notificationAJax();
                //JsModules.Browsers.make |> ignore;
-               badgeFormAJax();
+               state.badge |> badgeFormAJax;
              | _ =>
                "" |> Locals.create("newid");
                autoPath |> Sessions.create("autoPath");
@@ -248,10 +257,26 @@ let make = (~autoPath: 'a, ~children) => {
       ShowRecord |> dispatch;
       recordAJax();
     });
+  let addCordAJax = () =>
+    Js.Promise.(
+      state.value
+      |> otherData("newid" |> Locals.select)
+      |> Form.addCord
+      |> then_(_ =>
+           searchPath
+           ++ "#"
+           ++ state.value
+           |> ReasonReactRouter.push
+           |> resolve
+         )
+      |> catch(error => error |> Js.log |> resolve)
+      |> ignore
+    );
   let keydownField =
     useCallback(keyCode =>
       if (keyCode == 13 && state.value != "") {
-        searchPath ++ "#" ++ state.value |> ReasonReactRouter.push;
+        ShowRecord |> dispatch;
+        addCordAJax();
       }
     );
   let showMenu =
@@ -270,7 +295,11 @@ let make = (~autoPath: 'a, ~children) => {
       tabPath |> ReasonReactRouter.push;
     });
   let showCreate = useCallback(_ => ShowCreate |> dispatch);
-  let createForm = useCallback(_ => ShowCreate |> dispatch);
+  let createForm =
+    useCallback(_ => {
+      ClickItemTab(-1) |> dispatch;
+      ShowCreate |> dispatch;
+    });
   let badgeAJax = () =>
     Js.Promise.(
       "newid"
@@ -300,7 +329,7 @@ let make = (~autoPath: 'a, ~children) => {
       loginPath |> ReasonReactRouter.push;
     });
   <>
-    <AppBar backgroundColor="rgba(255,255,255,1)" minHeight="60">
+    <AppBar color="rgba(255,255,255,1)" minHeight="60">
       <GridContainer direction="row" justify="between" alignItem="center">
         <GridItem top="0" right="0" bottom="0" left="0" xs="no">
           <GridContainer direction="row" justify="center" alignItem="center">
@@ -405,7 +434,7 @@ let make = (~autoPath: 'a, ~children) => {
                          borderRadius="15"
                          id={"tab-" ++ string_of_int(i)}
                          animationName="none"
-                         onClick={_ => clickItemTab(i, tabtitem.tabPath)}>
+                         onClick={_ => tabtitem.tabPath |> clickItemTab(i)}>
                          <IconAction
                            width="28"
                            height="28"

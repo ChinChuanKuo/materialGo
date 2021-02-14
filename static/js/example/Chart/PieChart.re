@@ -43,7 +43,7 @@ let make =
             from={from(datas, i) /. total(datas)}
             to_={to_(datas, i, data.to_) /. total(datas)}
             ?onClick>
-            <Animate attributeName="opacity" to_="1" />
+            <Animate name="opacity" to_="1" />
           </PiePath>
         )
      |> array}

@@ -5,25 +5,25 @@ import * as Setting$BtsCore from "../../../setting/Setting.bs.js";
 
 ((require('../../scss/Badge/badge.scss')));
 
-function transforms(vertical, horizontal) {
-  if (vertical !== undefined) {
-    if (horizontal !== undefined) {
+function others(value) {
+  if (value !== undefined) {
+    return value;
+  } else {
+    return "auto";
+  }
+}
+
+function transforms(key, value) {
+  if (key !== undefined) {
+    if (value !== undefined) {
       return "translate(-15px, 15px)";
     } else {
       return "translate(15px, 15px)";
     }
-  } else if (horizontal !== undefined) {
+  } else if (value !== undefined) {
     return "translate(-15px, -15px)";
   } else {
     return "translate(15px, -15px)";
-  }
-}
-
-function backgroundColors(backgroundColor) {
-  if (backgroundColor !== undefined) {
-    return backgroundColor;
-  } else {
-    return "#3f51b5";
   }
 }
 
@@ -35,22 +35,34 @@ function colors(color) {
   }
 }
 
+function backgroundColors(value) {
+  if (value !== undefined) {
+    return value;
+  } else {
+    return "#3f51b5";
+  }
+}
+
 function Badge(Props) {
   var style = Props.style;
   var vertical = Props.vertical;
   var horizontal = Props.horizontal;
-  var backgroundColor = Props.backgroundColor;
+  var top = Props.top;
+  var right = Props.right;
+  var bottom = Props.bottom;
+  var left = Props.left;
   var color = Props.color;
+  var backgroundColor = Props.backgroundColor;
   var children = Props.children;
   return React.createElement("span", {
               className: "j1nwm6bj j177wmhi",
               style: Object.assign(({}), {
                     backgroundColor: backgroundColor !== undefined ? backgroundColor : "#3f51b5",
-                    bottom: "auto",
+                    bottom: bottom !== undefined ? bottom : "auto",
                     color: color !== undefined ? color : "rgba(255,255,255,1)",
-                    left: "auto",
-                    right: "auto",
-                    top: "auto",
+                    left: left !== undefined ? left : "auto",
+                    right: right !== undefined ? right : "auto",
+                    top: top !== undefined ? top : "auto",
                     transform: transforms(vertical, horizontal)
                   }, Setting$BtsCore.styleObjects(style))
             }, children);
@@ -59,9 +71,10 @@ function Badge(Props) {
 var make = Badge;
 
 export {
+  others ,
   transforms ,
-  backgroundColors ,
   colors ,
+  backgroundColors ,
   make ,
   
 }

@@ -19,46 +19,46 @@ let reducer = (state, action) =>
 
 let initialState = {enter: false, down: false};
 
-let margins = margin =>
-  switch (margin) {
+let margins = value =>
+  switch (value) {
   | None => "10px"
-  | Some(margin) => margin ++ "px"
+  | Some(value) => value ++ "px"
   };
 
-let colors = color =>
-  switch (color) {
-  | None => "#fafafa"
-  | Some(color) => color
-  };
-
-let borderWidths = borderWidth =>
-  switch (borderWidth) {
+let widths = value =>
+  switch (value) {
   | None => "1px"
-  | Some(borderWidth) => borderWidth ++ "px"
+  | Some(value) => value ++ "px"
   };
 
-let borderStyles = borderStyle =>
-  switch (borderStyle) {
+let styles = value =>
+  switch (value) {
   | None => "solid"
-  | Some(borderStyle) => borderStyle
+  | Some(value) => value
   };
 
-let borderColors = borderColor =>
-  switch (borderColor) {
+let colors = value =>
+  switch (value) {
   | None => "transparent"
-  | Some(borderColor) => borderColor
+  | Some(value) => value
   };
 
-let enterBorderColors = enterBorderColor =>
-  switch (enterBorderColor) {
+let enterColors = value =>
+  switch (value) {
   | None => "rgba(255,0,0,1)"
-  | Some(enterBorderColor) => enterBorderColor
+  | Some(value) => value
   };
 
-let backgroundColors = backgroundColor =>
-  switch (backgroundColor) {
+let backgroundColors = value =>
+  switch (value) {
   | None => "#bdbdbd"
-  | Some(backgroundColor) => backgroundColor
+  | Some(value) => value
+  };
+
+let colors = value =>
+  switch (value) {
+  | None => "#fafafa"
+  | Some(value) => value
   };
 
 [@react.component]
@@ -70,12 +70,20 @@ let make =
       ~bottom: option(string)=?,
       ~left: option(string)=?,
       ~color: option(string)=?,
+      ~downColor: option(string)=?,
+      ~enterColor: option(string)=?,
       ~borderWidth: option(string)=?,
+      ~downBorderWidth: option(string)=?,
+      ~enterBorderWidth: option(string)=?,
       ~borderStyle: option(string)=?,
-      ~enterBorderColor: option(string)=?,
-      ~downBorderColor: option(string)=?,
+      ~downBorderStyle: option(string)=?,
+      ~enterBorderStyle: option(string)=?,
       ~borderColor: option(string)=?,
+      ~downBorderColor: option(string)=?,
+      ~enterBorderColor: option(string)=?,
       ~backgroundColor: option(string)=?,
+      ~downBackgroundColor: option(string)=?,
+      ~enterBackgroundColor: option(string)=?,
       ~onClick: option(ReactEvent.Mouse.t => unit)=?,
       ~children,
     ) => {
@@ -100,25 +108,41 @@ let make =
                 left |> margins;
               },
               ~color={
-                color |> colors;
+                switch (state.enter, state.down) {
+                | (true, false) => enterColor |> colors
+                | (true, true) => downColor |> colors
+                | (_, _) => color |> colors
+                };
               },
-              ~cursor="pointer",
               ~borderWidth={
-                borderWidth |> borderWidths;
+                switch (state.enter, state.down) {
+                | (true, false) => enterBorderWidth |> widths
+                | (true, true) => downBorderWidth |> widths
+                | (_, _) => borderWidth |> widths
+                };
               },
               ~borderStyle={
-                borderStyle |> borderStyles;
+                switch (state.enter, state.down) {
+                | (true, false) => enterBorderStyle |> styles
+                | (true, true) => downBorderStyle |> styles
+                | (_, _) => borderStyle |> styles
+                };
               },
               ~borderColor={
                 switch (state.enter, state.down) {
-                | (true, false) => enterBorderColor |> enterBorderColors
-                | (true, true) => downBorderColor |> enterBorderColors
-                | (_, _) => borderColor |> borderColors
+                | (true, false) => enterBorderColor |> enterColors
+                | (true, true) => downBorderColor |> enterColors
+                | (_, _) => borderColor |> colors
                 };
               },
               ~backgroundColor={
-                backgroundColor |> backgroundColors;
+                switch (state.enter, state.down) {
+                | (true, false) => enterBackgroundColor |> backgroundColors
+                | (true, true) => downBackgroundColor |> backgroundColors
+                | (_, _) => backgroundColor |> backgroundColors
+                };
               },
+              ~cursor="pointer",
               (),
             ),
             style |> styleObjects,
